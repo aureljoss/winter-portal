@@ -13,9 +13,9 @@ import portalFragmentShader from "./Shaders/portal/fragment.glsl";
  */
 // Debug
 const debugObject = {};
-// const gui = new GUI({
-//   width: 400,
-// });
+const gui = new GUI({
+  width: 400,
+});
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -73,15 +73,16 @@ const poleLightMaterial = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 debugObject.portalColorStart = "#000000";
 debugObject.portalColorEnd = "#ffffff";
 
-// gui.addColor(debugObject, "portalColorStart").onChange(() => {
-//   portalLightMaterial.uniforms.uColorStart.value.set(
-//     debugObject.portalColorStart
-//   );
-// });
+gui.addColor(debugObject, "portalColorStart").onChange(() => {
+  portalLightMaterial.uniforms.uColorStart.value.set(
+    debugObject.portalColorStart
+  );
+}).name("Outside Portal Color");;
 
-// gui.addColor(debugObject, "portalColorEnd").onChange(() => {
-//   portalLightMaterial.uniforms.uColorEnd.value.set(debugObject.portalColorEnd);
-// });
+gui.addColor(debugObject, "portalColorEnd").onChange(() => {
+  portalLightMaterial.uniforms.uColorEnd.value.set(debugObject.portalColorEnd);
+}).name("Inside Portal Color");
+
 
 const portalLightMaterial = new THREE.ShaderMaterial({
   uniforms: {
@@ -183,12 +184,12 @@ const firefliesMaterial = new THREE.ShaderMaterial({
   depthWrite: false,
 });
 
-// gui
-//   .add(firefliesMaterial.uniforms.uSize, "value")
-//   .min(0)
-//   .max(500)
-//   .step(1)
-//   .name("firefliesSize");
+gui
+  .add(firefliesMaterial.uniforms.uSize, "value")
+  .min(0)
+  .max(500)
+  .step(1)
+  .name("Fireflies Size");
 
 //Points
 const fireflies = new THREE.Points(firefliesGeometry, firefliesMaterial);
@@ -249,11 +250,11 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-debugObject.clearColor = "#110e0e";
+debugObject.clearColor = "#ffffff";
 renderer.setClearColor(debugObject.clearColor);
-// gui.addColor(debugObject, "clearColor").onChange(() => {
-//   renderer.setClearColor(debugObject.clearColor);
-// });
+gui.addColor(debugObject, "clearColor").onChange(() => {
+  renderer.setClearColor(debugObject.clearColor);
+}).name('Background Color');
 
 /**
  * Animate
